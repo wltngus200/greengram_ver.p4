@@ -6,5 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FeedCommentMapper {
     int postComment(PostCommentReq p);
-    //서비스부터 거꾸로 작업
+
+    int deleteComment(DeleteCommentReq p);
 }

@@ -6,13 +6,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Paging {
-    private Long page;
-    private Long length;
-    private Long startIdx;
+    private int page;
+    private int length;
+    private int startIdx;
 
-    public Paging(Long page, Long length){
-        this.page=page!=null?page:1;//페이징 처리 어떻게 하더라...
-        this.length=length!=null?length:10;
-        this.startIdx=(page-1)*length;
+    public Paging(Integer page, Integer length){
+        this.page=(page!=null?page:GlobalNum.DEFAULT_PAGE);//페이징 처리 어떻게 하더라...
+        this.length=(length!=null?length:GlobalNum.DEFAULT_LENGTH);
+        this.startIdx=(this.page-1)*length;
     }
 }

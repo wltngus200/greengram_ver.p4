@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class GetFeedComments {
-    private long commentId;
+    private long feedCommentId;
     private long feedId;
     private long userId;
     private String pic;

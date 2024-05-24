@@ -2,9 +2,7 @@ package com.green.greengram.feed;
 
 import com.green.greengram.common.CustomFileUtils;
 import com.green.greengram.common.GlobalNum;
-import com.green.greengram.feed.model.GetFeedRes;
-import com.green.greengram.feed.model.UploadFeedPicsReq;
-import com.green.greengram.feed.model.UploadFeedReq;
+import com.green.greengram.feed.model.*;
 import com.green.greengram.feedcomment.model.GetFeedComments;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +23,7 @@ public class FeedService {
     public int postFeed(List<MultipartFile> pics, UploadFeedReq p){
         int result=mapper.postFeed(p); //내용은 DB에 전송
 
+        //사진 업로드에 필요한 정보 추출
         UploadFeedPicsReq req= UploadFeedPicsReq.builder()
                                 .feedId(p.getFeedId())
                                 .pics(new ArrayList<>())
@@ -46,23 +45,24 @@ public class FeedService {
         }
         return result;
     }
-    public int deleteFeed(long feedId, long signedUserId){
-        return mapper.deleteFeed(feedId, signedUserId);
+    public int deleteFeed(DeleteFeedReq p){
+        return mapper.deleteFeed(p);
 
     }
-    public List<GetFeedRes> getFeed(){
-        List<GetFeedRes> list=mapper.getFeed();
+    public List<GetFeedRes> getFeed(GetFeedReq p){
+        log.info("{}", p);
+        List<GetFeedRes> list=mapper.getFeed(p);
         for(GetFeedRes res:list){
             //사진
-            List<String> pics=mapper.getFeedPics();
+            List<String> pics=mapper.getFeedPics(res.getFeedId());
             res.setPics(pics);
 
-            //코멘트 3개만 보이게
-            List<GetFeedComments> comments=mapper.getFeedComments();
-            if(comments.size()== GlobalNum.DEFAULT_PAGE){
+            //코멘트(3개)
+            List<GetFeedComments> comments=mapper.getFeedComments(res.getFeedId());
+            if(comments.size()== GlobalNum.DEFAULT_SIZE){
                 res.setIsMoreComments(1);
-                comments.remove(GlobalNum.DEFAULT_PAGE);
-            }
+                comments.remove(GlobalNum.DEFAULT_SIZE);
+            }log.info("{}", p);
         }
         return list;
     }

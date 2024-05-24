@@ -4,6 +4,7 @@ import com.green.greengram.common.ResultDto;
 import com.green.greengram.user.model.SignInUserReq;
 import com.green.greengram.user.model.SignUpUserReq;
 import com.green.greengram.user.model.User;
+import com.green.greengram.user.model.UserSignInRes;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,8 +20,8 @@ public class UserController {
 
     @PostMapping("sign-up")
     @Operation(summary="USER SIGN-UP", description = "회원 가입")
-    public ResultDto<Integer> signUpUser(@RequestPart(required = false) MultipartFile mf, @RequestPart SignUpUserReq p){
-        int result=service.signUpUser(mf, p);
+    public ResultDto<Integer> signUpUser(@RequestPart(required = false) MultipartFile pic, @RequestPart SignUpUserReq p){
+        int result=service.signUpUser(pic, p);
 
         return ResultDto.<Integer>builder()
                 .statusCode(HttpStatus.OK)
@@ -31,9 +32,9 @@ public class UserController {
 
     @PostMapping("sign-in")
     @Operation(summary="USER LOG-IN", description = "유저 로그인")
-    public ResultDto<User> signInUser(@RequestBody SignInUserReq p){
-        User result=service.findUserByUserId(p);
-        return ResultDto.<User>builder()
+    public ResultDto<UserSignInRes> signInUser(@RequestBody SignInUserReq p){
+        UserSignInRes result=service.findUserByUserId(p);
+        return ResultDto.<UserSignInRes>builder()
                 .statusCode(HttpStatus.OK)
                 .resultMsg("━((*′д｀)爻(′д｀*))━!!!!")
                 .resultData(result)

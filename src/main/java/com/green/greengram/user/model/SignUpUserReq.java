@@ -13,14 +13,10 @@ public class SignUpUserReq {
     @JsonIgnore
     private long userId;
 
-    @Schema(description = "USER의 ID")
     private String uid;
-    @Schema(description ="USER의 PASSWORD")
     private String upw;
-    @Schema(description="USER의 NAME")
     private String nm;
 
-    @Schema(name="USER PIC", description = "사진은 필수가 아님"/*여기 뭘 넣어야되는데*/)
     @JsonIgnore
     private String pic;
 }

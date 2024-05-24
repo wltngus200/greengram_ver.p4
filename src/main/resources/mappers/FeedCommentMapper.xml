@@ -10,4 +10,10 @@
         (#{feedId}, #{userId}, #{comment})
     </insert>
 
+    <delete id="deleteComment">
+        DELETE
+        FROM feed_comment
+        WHERE writer_id=#{signedUserId} AND feed_id=#{feedId}
+    </delete>
+
 </mapper>

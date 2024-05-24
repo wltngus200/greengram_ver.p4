@@ -32,7 +32,7 @@
                 B.pic AS writerPic, B.nm, IF(C.feed_id is null, 0, 1)
         FROM feed A
         INNER JOIN user B
-        ON A.writerId=B.user_id
+        ON A.writer_id=B.user_id
         LEFT JOIN feed_favorite C
         ON B.user_id=#{signedUserId}
         LIMIT #{startIdx}, #{length}
@@ -45,7 +45,8 @@
     </select>
 
     <select id="getFeedComments">
-        SELECT A.comment_id AS commentId, A.user_id AS userId, B.nm, B.pic, A.feed_id AS feedId, A.comment, A.created_at AS createdAt
+        SELECT A.feed_comment_id AS feedCommentId, A.user_id AS userId,
+                B.nm, B.pic, A.feed_id AS feedId, A.comment, A.created_at AS createdAt
         FROM feed_comment A
         INNER JOIN user B
         ON A.user_id=B.user_id

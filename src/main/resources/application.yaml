@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:log4jdbc:mariadb://localhost:3306/greengram2024_vp4
+    url: jdbc:mariadb://localhost:3306/greengram2024_vp4
     username: root
     password: green502
   servlet:
@@ -9,7 +9,7 @@ spring:
       max-file-size: 5MB
 
 file:
-  directory: D:\2024_BACK_JI\download\greengram_verP5
+  directory: D:\2024_BACK_JI\download\gram_practice4
 
 mybatis:
   mapper-locations: mappers/**/*.xml
